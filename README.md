@@ -96,7 +96,10 @@ Upload Code: Create a file named main.py on your ESP32, paste the code below, an
 
 _________________________________________________________________________________________________________________
 
-THE FINAL LOOK of the visitor counter and analytics : coming...
+THE FINAL LOOK of the visitor counter and analytics 
+-
+
+: coming...
 
 
 
