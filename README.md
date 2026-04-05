@@ -1,7 +1,8 @@
-# Office-visitor-counter-project-
+# Office-visitor-counter-mini-project-
 Made a visitor counter for STUHI office from hardware to track visitors at different times from your phone. 
 
 IoT Bi-Directional Visitor Counter (ESP32 + MicroPython)
+-
 IoT-enabled visitor counter built with an ESP32 and two HC-SR04 ultrasonic sensors. It accurately counts people entering and exiting a room and updates the total in real-time to a mobile phone using the Blynk IoT platform, which also collects data and makes analytics.
 
 This build is designed to be minimalistic—no physical displays or noisy relays, just seamless cloud syncing via Wi-Fi.
@@ -17,9 +18,22 @@ Micro-USB Cable (for programming and power)
 
 0 resistors but highly recommend using them to avoid burning your esp32 
 
+3D Printed stand and a box, by @itsmixu.
+_________________________________________________________________________________________________________________
+
+
+--> possible add ons : 
+- 
+Session Duration
+Use cookies, local storage, or IP hashing to distinguish between a new visitor and someone just refreshing
+Historical Graphs: Add a small sparkline or bar chart (using Chart.js or D3.js) showing traffic trends over the last 7 days. ( This one I am going to integrate into this project later)
+_________________________________________________________________________________________________________________
+
+
 
 Simple Wiring Guide
-The wiring is straightforward. The ESP32 is the brain, and we power the 5V sensors using the ESP32's Vin pin (which draws 5V directly from the USB connection).
+The ESP32 is the brain, and we power the 5V sensors using the ESP32's Vin pin (which draws 5V directly from the USB connection).
+-
 
 Component	Pin	Connects to (ESP32 / Breadboard)
 Power	VCC	Vin (Red 5V Rail)
@@ -69,3 +83,10 @@ Install Blynk: Go to Tools > Manage Packages in Thonny and install blynk-library
 Blynk Dashboard: Create a template on Blynk.cloud, add a Datastream as a Virtual Pin (V1), and get your Auth Token.
 
 Upload Code: Create a file named main.py on your ESP32, paste the code below, and update your Wi-Fi and Blynk credentials.
+
+_________________________________________________________________________________________________________________
+
+THE FINAL LOOK of the visitor counter and analytics : coming...
+
+
+
