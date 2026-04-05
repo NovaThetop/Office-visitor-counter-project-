@@ -24,11 +24,11 @@ ________________________________________________________________________________
 
 --> possible add ons : 
 - 
-Session Duration
-Use cookies, local storage, or IP hashing to distinguish between a new visitor and someone just refreshing
-Historical Graphs: Add a small sparkline or bar chart (using Chart.js or D3.js) showing traffic trends over the last 7 days. ( This one I am going to integrate into this project later)
+Session Duration and
+cookies, local storage, or IP hashing to distinguish between a new visitor and someone just refreshing
+Historical Graphs: Add a small sparkline or bar chart (using Chart.js or D3.js) showing traffic trends over the last 7 days. 
+( This one I am going to integrate into this project later)
 _________________________________________________________________________________________________________________
-
 
 
 Simple Wiring Guide
@@ -36,20 +36,28 @@ The ESP32 is the brain, and we power the 5V sensors using the ESP32's Vin pin (w
 -
 
 Component	Pin	Connects to (ESP32 / Breadboard)
+
 Power	VCC	Vin (Red 5V Rail)
+
 Power	GND	GND (Blue Ground Rail)
+
 Sensor 1 (Entry)	Trig	Pin D32
+
 Sensor 1 (Entry)	Echo	Pin D33
+
 Sensor 2 (Exit)	Trig	Pin D4
+
 Sensor 2 (Exit)	Echo	Pin D2
+
 Two jumper wires to connect the two breadboards used.
+
 (Note: The ESP32 is a 3.3V logic device. While connecting the 5V Echo pin directly to the ESP32 works for prototyping, using a simple voltage divider on the Echo pins is recommended for long-term use).
 
 The Algorithm: How It Knows Your Direction
+-
 Measuring distance is easy, but tracking direction and preventing false counts requires a specific sequence logic. If you just wave your hand in front of one sensor, or if two people cross paths, a simple counter will fail to count. 
 
 Here is the "State Machine" algorithm used in this code:
--
 
 The Trigger: The loop constantly pings both sensors. When an object breaks the threshold ( < 130 cm) on Sensor 1, the sequence initiates.
 
@@ -64,6 +72,7 @@ Reverse Logic: The exact same sequence runs in reverse. If Sensor 2 is triggered
 _________________________________________________________________________________________________________________
 
 How the Wi-Fi & Mobile App Work
+-
 In this project I used Blynk IoT to send data to your phone without needing complex web servers, it also can keep all of your other sensor projects in one window in the phone. 
 
 The Connection: When the ESP32 powers on, it connects to your local Wi-Fi router.(through your input of your wifi name and password into the code)
@@ -76,6 +85,7 @@ The App: The Blynk app on your phone subscribes to this Virtual Pin. The moment 
 _________________________________________________________________________________________________________________
 
 Setup & Installation
+-
 Flash MicroPython: Use Thonny IDE to download the MicroPython onto your ESP32.
 
 Install Blynk: Go to Tools > Manage Packages in Thonny and install blynk-library-python to your esp32.
