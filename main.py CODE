@@ -1,0 +1,92 @@
+import machine
+import time
+import network
+import BlynkLib
+
+BLYNK_AUTH_TOKEN = 'YOUR_AUTH_TOKEN_HERE'
+WIFI_SSID = 'YOUR_WIFI_NAME'
+WIFI_PASS = 'YOUR_WIFI_PASSWORD'
+
+trig1 = machine.Pin(32, machine.Pin.OUT)
+echo1 = machine.Pin(33, machine.Pin.IN)
+trig2 = machine.Pin(4, machine.Pin.OUT)
+echo2 = machine.Pin(2, machine.Pin.IN)
+
+visitor_count = 0
+
+wifi = network.WLAN(network.STA_IF)
+wifi.active(True)
+wifi.connect(WIFI_SSID, WIFI_PASS)
+
+while not wifi.isconnected():
+    print("Connecting to WiFi...")
+    time.sleep(1)
+print("WiFi Connected! IP:", wifi.ifconfig()[0])
+
+blynk = BlynkLib.Blynk(BLYNK_AUTH_TOKEN)
+
+def get_distance(trig, echo):
+    trig.off()
+    time.sleep_us(2)
+    trig.on()
+    time.sleep_us(10)
+    trig.off()
+    
+    pulse_start = 0
+    pulse_end = 0
+    
+    timeout = time.ticks_us() + 30000 
+    while echo.value() == 0 and time.ticks_us() < timeout:
+        pulse_start = time.ticks_us()
+    while echo.value() == 1 and time.ticks_us() < timeout:
+        pulse_end = time.ticks_us()
+        
+    duration = time.ticks_diff(pulse_end, pulse_start)
+    distance = (duration * 0.0343) / 2
+    return distance
+
+print("Visitor Counter Ready!")
+
+
+while True:
+    blynk.run()
+    
+    dist1 = get_distance(trig1, echo1)
+    dist2 = get_distance(trig2, echo2)
+
+ 
+    if dist1 < 130: # Threshold in cm
+        print("S1 triggered... Move to S2 now!")
+        timeout = time.time() + 4 # 4 seconds to pass second sensor
+        success = False
+        while time.time() < timeout:
+            if get_distance(trig2, echo2) < 60:
+                visitor_count += 1
+                print("--- SUCCESSFUL ENTRY! Total:", visitor_count)
+                blynk.virtual_write(1, visitor_count)
+                success = True
+                time.sleep(1.5) # Debounce
+                break
+            time.sleep(0.05)
+        if not success:
+            print("Entry Failed: Didn't reach S2 in time.")
+
+
+    if dist2 < 130: 
+        print("S2 triggered... Move to S1 now!")
+        timeout = time.time() + 4
+        success = False
+        while time.time() < timeout:
+            if get_distance(trig1, echo1) < 60:
+                if visitor_count > 0:
+                    visitor_count -= 1
+                print("--- SUCCESSFUL EXIT! Total:", visitor_count)
+                blynk.virtual_write(1, visitor_count)
+                success = True
+                time.sleep(1.5) # Debounce
+                break
+            time.sleep(0.05)
+        if not success:
+            print("Exit Failed: Didn't reach S1 in time.")
+
+    time.sleep(0.1)
