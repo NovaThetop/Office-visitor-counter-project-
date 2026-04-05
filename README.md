@@ -7,12 +7,16 @@ IoT-enabled visitor counter built with an ESP32 and two HC-SR04 ultrasonic senso
 This build is designed to be minimalistic—no physical displays or noisy relays, just seamless cloud syncing via Wi-Fi.
 
 Hardware Used :
+-
 ESP32 Development Board
+
 2x HC-SR04 Ultrasonic Sensors (One for Entry, one for Exit)
+
 2 Breadboards where esp32 straddles the center of the both breadboards & Jumper Wires
 Micro-USB Cable (for programming and power)
+
 0 resistors but highly recommend using them to avoid burning your esp32 
--
+
 
 Simple Wiring Guide
 The wiring is straightforward. The ESP32 is the brain, and we power the 5V sensors using the ESP32's Vin pin (which draws 5V directly from the USB connection).
