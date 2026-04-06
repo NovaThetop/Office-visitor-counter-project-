@@ -7,6 +7,9 @@ IoT-enabled visitor counter built with an ESP32 and two HC-SR04 ultrasonic senso
 
 This build is designed to be minimalistic—no physical displays or noisy relays, just seamless cloud syncing via Wi-Fi.
 
+<img width="1155" height="649" alt="image" src="https://github.com/user-attachments/assets/a9feb6c6-3ca9-4502-8855-5fbe22564ba8" />
+
+
 Hardware Used :
 -
 ESP32 Development Board
@@ -16,7 +19,7 @@ ESP32 Development Board
 2 Breadboards where esp32 straddles the center of the both breadboards & Jumper Wires
 Micro-USB Cable (for programming and power)
 
-0 resistors but highly recommend using them to avoid burning your esp32 
+2 of 1 kilo ohm resistors and 2 of 2 kilo ohm resistors ( highly recommend using them to avoid burning your esp32 )
 
 3D Printed stand and a box, by @itsmixu.
 _________________________________________________________________________________________________________________
@@ -26,10 +29,7 @@ ________________________________________________________________________________
 - 
 Session Duration and
 cookies, local storage, or IP hashing to distinguish between a new visitor and someone just refreshing
-Historical Graphs: Add a small sparkline or bar chart (using Chart.js or D3.js) showing traffic trends over the last 7 days. 
-( This one I am going to integrate into this project later)
 _________________________________________________________________________________________________________________
-
 
 Simple Wiring Guide
 The ESP32 is the brain, and we power the 5V sensors using the ESP32's Vin pin (which draws 5V directly from the USB connection).
@@ -43,15 +43,29 @@ Power	GND	GND (Blue Ground Rail)
 
 Sensor 1 (Entry)	Trig	Pin D32
 
-Sensor 1 (Entry)	Echo	Pin D33
+Sensor 1 (Entry)	Echo	Pin D33  through resistor divider
+
+ECHO ---- R1 ----+---- GPIO (ESP32)
+                 |
+                 R2
+                 |
+                GND
 
 Sensor 2 (Exit)	Trig	Pin D4
 
 Sensor 2 (Exit)	Echo	Pin D2
 
+through resistor divider
+
+ECHO ---- R1 ----+---- GPIO (ESP32)
+                 |
+                 R2
+                 |
+                GND
+
+
 Two jumper wires to connect the two breadboards used.
 
-(Note: The ESP32 is a 3.3V logic device. While connecting the 5V Echo pin directly to the ESP32 works for prototyping, using a simple voltage divider on the Echo pins is recommended for long-term use).
 
 The Algorithm: How It Knows Your Direction
 -
@@ -61,9 +75,9 @@ Here is the "State Machine" algorithm used in this code:
 
 The Trigger: The loop constantly pings both sensors. When an object breaks the threshold ( < 130 cm) on Sensor 1, the sequence initiates.
 
-The Countdown Window: Once Sensor 1 is triggered, a timeout variable gives the person exactly 4 seconds to reach Sensor 2.
+The Countdown Window: Once Sensor 1 is triggered, a timeout variable gives the person exactly 2 seconds to reach Sensor 2.
 
-Confirmation: If Sensor 2 is triggered before the 4 seconds run out, it's considered a "Successful Entry" (+1). If the timer runs out, the event is discarded as a false alarm.
+Confirmation: If Sensor 2 is triggered before the 2 seconds run out, it's considered a "Successful Entry" (+1). If the timer runs out, the event is discarded as a false alarm.
 
 Debounce : After a successful count, the code intentionally sleeps for 1-2 seconds. This prevents a slow-walking person from being counted twice.
 
@@ -99,7 +113,12 @@ ________________________________________________________________________________
 THE FINAL LOOK of the visitor counter and analytics 
 -
 
-: coming...
+-![WhatsApp Image 2026-04-06 at 13 28 50](https://github.com/user-attachments/assets/87f77a39-d87f-4a3e-ae42-a9404346bc87)
+
+WEB analytics : 
+
+<img width="1184" height="655" alt="image" src="https://github.com/user-attachments/assets/552662d9-b91f-4ce1-8319-290fe12436f6" />
+
 
 
 
