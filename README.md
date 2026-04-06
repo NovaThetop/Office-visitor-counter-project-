@@ -9,6 +9,9 @@ This build is designed to be minimalistic—no physical displays or noisy relays
 
 <img width="1155" height="649" alt="image" src="https://github.com/user-attachments/assets/a9feb6c6-3ca9-4502-8855-5fbe22564ba8" />
 
+-![WhatsApp Image 2026-04-06 at 13 28 50](https://github.com/user-attachments/assets/87f77a39-d87f-4a3e-ae42-a9404346bc87)
+
+
 
 Hardware Used :
 -
@@ -112,15 +115,8 @@ Upload Code: Create a file named main.py on your ESP32, paste the code below, an
 
 _________________________________________________________________________________________________________________
 
-THE FINAL LOOK of the visitor counter and analytics 
+THE FINAL LOOK of the visitor counter on the place :
 -
 
--![WhatsApp Image 2026-04-06 at 13 28 50](https://github.com/user-attachments/assets/87f77a39-d87f-4a3e-ae42-a9404346bc87)
-
-WEB analytics : 
-
-<img width="1184" height="655" alt="image" src="https://github.com/user-attachments/assets/552662d9-b91f-4ce1-8319-290fe12436f6" />
-
-
-
+Coming...
 
