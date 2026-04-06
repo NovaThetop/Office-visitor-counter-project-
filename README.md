@@ -46,6 +46,7 @@ Sensor 1 (Entry)	Trig	Pin D32
 Sensor 1 (Entry)	Echo	Pin D33  through resistor divider
 
 ECHO ---- R1 ----+---- GPIO (ESP32)
+
                  |
                  R2
                  |
@@ -58,6 +59,7 @@ Sensor 2 (Exit)	Echo	Pin D2
 through resistor divider
 
 ECHO ---- R1 ----+---- GPIO (ESP32)
+
                  |
                  R2
                  |
