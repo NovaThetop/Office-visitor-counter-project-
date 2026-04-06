@@ -55,12 +55,12 @@ while True:
     dist2 = get_distance(trig2, echo2)
 
  
-    if dist1 < 130: # Threshold in cm
+    if dist1 < 40: # Threshold in cm
         print("S1 triggered... Move to S2 now!")
         timeout = time.time() + 4 # 4 seconds to pass second sensor
         success = False
         while time.time() < timeout:
-            if get_distance(trig2, echo2) < 60:
+            if get_distance(trig2, echo2) < 40:
                 visitor_count += 1
                 print("--- SUCCESSFUL ENTRY! Total:", visitor_count)
                 blynk.virtual_write(1, visitor_count)
@@ -72,12 +72,12 @@ while True:
             print("Entry Failed: Didn't reach S2 in time.")
 
 
-    if dist2 < 130: 
+    if dist2 < 40: 
         print("S2 triggered... Move to S1 now!")
         timeout = time.time() + 4
         success = False
         while time.time() < timeout:
-            if get_distance(trig1, echo1) < 60:
+            if get_distance(trig1, echo1) < 40:
                 if visitor_count > 0:
                     visitor_count -= 1
                 print("--- SUCCESSFUL EXIT! Total:", visitor_count)
